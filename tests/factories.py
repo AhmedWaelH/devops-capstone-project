@@ -2,22 +2,22 @@
 Test Factory to make fake objects for testing
 """
 from datetime import date
-import factory
-from factory.fuzzy import FuzzyDate
+from faker import Faker
+from mixer.backend.django import mixer
 from service.models import Account
 
-
-class AccountFactory(factory.Factory):
+class AccountFactory:
     """Creates fake Accounts"""
 
-    # pylint: disable=too-few-public-methods
-    class Meta:
-        """Persistent class for factory"""
-        model = Account
+    def __init__(self):
+        self.fake = Faker()
 
-    id = factory.Sequence(lambda n: n)
-    name = factory.Faker("name")
-    email = factory.Faker("email")
-    address = factory.Faker("address")
-    phone_number = factory.Faker("phone_number")
-    date_joined = FuzzyDate(date(2008, 1, 1))
+    def create_account(self):
+        account = mixer.blend(Account,
+                              id=self.fake.unique.random_number(digits=5),
+                              name=self.fake.name(),
+                              email=self.fake.email(),
+                              address=self.fake.address(),
+                              phone_number=self.fake.phone_number(),
+                              date_joined=self.fake.date_between(start_date=date(2008, 1, 1), end_date='today'))
+        return account
