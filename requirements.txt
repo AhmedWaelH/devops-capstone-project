@@ -31,7 +31,3 @@ Flask-Talisman
 
 #Flask cors
 Flask-Cors
-
-# Code Coverage
-coverage==6.3.2
-codecov==2.1.12
