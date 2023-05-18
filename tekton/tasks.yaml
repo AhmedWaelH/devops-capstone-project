@@ -56,17 +56,14 @@ kind: Task
 metadata:
   name: nose
 spec:
-  description: This task will echo the message.
+  description: This task will run nosetests on the provided input.
   workspaces:
-   - name: source
+    - name: source
   params:
-    - name: message
-      description: This task will run nosetests on the provided input.
-      type: string
     - name: args
       description: Arguments to pass to nose
       type: string
-      default: -v
+      default: "-v"
     - name: database_uri
       description: Database connection string
       type: string
